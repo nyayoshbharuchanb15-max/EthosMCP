@@ -1,0 +1,7 @@
+fastmcp==0.1.0 # Placeholder version
+pydantic==2.0.0 # Placeholder version
+pydantic-settings==2.0.0 # Placeholder version
+fastapi==0.100.0 # Placeholder version
+uvicorn==0.22.0 # Placeholder version
+PyCryptodome==3.18.0 # Placeholder version
+psycopg2-binary # For PostgreSQL connection

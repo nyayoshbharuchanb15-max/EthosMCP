@@ -1,0 +1,48 @@
+# .gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Editors
+.vscode/
+.idea/
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
+
+# Docker
+.dockerignore
+
+# Test reports
+.coverage
+.pytest_cache/
+
+# Assets
+assets/*.png
+assets/*.jpg
