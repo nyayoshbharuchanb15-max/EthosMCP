@@ -22,10 +22,13 @@ class AuditReport(BaseModel):
 
 # Example for a ROPA entry
 class RopaEntry(BaseModel):
-    ropa_id: str
-    processing_activity: str
-    legal_basis: str
-    data_categories: List[str]
-    purpose: str
-    department_owner: str
-    # Add other ROPA-specific fields
+    ropa_id: str = Field(..., description="Unique identifier for the ROPA entry")
+    processing_activity: str = Field(..., description="Description of the data processing activity")
+    legal_basis: str = Field(..., description="Legal basis for processing (e.g., Consent, Contract, Legal Obligation)")
+    data_categories: List[str] = Field(..., description="Categories of personal data processed")
+    purpose: str = Field(..., description="Purpose of the data processing")
+    department_owner: str = Field(..., description="Department responsible for the processing activity")
+    data_subject_categories: List[str] = Field(..., description="Categories of data subjects")
+    recipients: List[str] = Field(..., description="Recipients of the personal data")
+    data_retention_period: str = Field(..., description="Period for which the personal data will be stored")
+    security_measures: str = Field(..., description="Description of technical and organizational security measures")

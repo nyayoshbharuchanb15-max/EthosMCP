@@ -1,0 +1,38 @@
+[
+    {
+        "user_id": "user_001",
+        "consent_id": "CONSENT-001",
+        "explicit_consent": true,
+        "granular_consent": {
+            "marketing_emails": true,
+            "analytics_tracking": false
+        },
+        "notice_language": "en-US",
+        "withdrawal_mechanism": "one-click",
+        "withdrawal_friction_score": 1
+    },
+    {
+        "user_id": "user_002",
+        "consent_id": "CONSENT-002",
+        "explicit_consent": false,
+        "granular_consent": {
+            "marketing_emails": false,
+            "analytics_tracking": false
+        },
+        "notice_language": "fr-FR",
+        "withdrawal_mechanism": "multi-step",
+        "withdrawal_friction_score": 5
+    },
+    {
+        "user_id": "user_003",
+        "consent_id": "CONSENT-003",
+        "explicit_consent": true,
+        "granular_consent": {
+            "marketing_emails": true,
+            "analytics_tracking": true
+        },
+        "notice_language": "hi-IN",
+        "withdrawal_mechanism": "one-click",
+        "withdrawal_friction_score": 1
+    }
+]

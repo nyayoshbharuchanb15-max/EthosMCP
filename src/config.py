@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     PORT: int = 8000
     DATABASE_URL: str = "postgresql://user:password@host:port/dbname"
     CRYPTO_KEY: str = "supersecretkey"
+    DATA_DIR: str = "./data"
     # Add other configuration variables as needed
 
 settings = Settings()

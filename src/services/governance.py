@@ -1,53 +1,63 @@
 # src/services/governance.py
 
-from fastmcp import ServiceRouter
+import json
+from typing import List
 from src.models import AuditReport, AuditResult, RopaEntry
+from src.config import settings
 
-router = ServiceRouter(prefix="/governance", tags=["Governance Audit"])
+def load_ropa_records() -> List[RopaEntry]:
+    ropa_file_path = f"{settings.DATA_DIR}/ropa_records.json"
+    try:
+        with open(ropa_file_path, "r") as f:
+            data = json.load(f)
+            return [RopaEntry(**item) for item in data]
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        return []
 
-@router.post("/get_ropa_records", response_model=List[RopaEntry])
-async def get_ropa_records():
+async def get_ropa_records() -> List[RopaEntry]:
     """Accesses foundational data classification mapping tables."""
-    # Placeholder for actual ROPA data retrieval logic
-    # In a real implementation, this would query a read-only database
-    # or a dedicated ROPA management system.
-    return [
-        RopaEntry(
-            ropa_id="ROPA-001",
-            processing_activity="Customer Data Collection",
-            legal_basis="Consent",
-            data_categories=["Personal Identifiable Information", "Contact Data"],
-            purpose="Marketing",
-            department_owner="Marketing"
-        )
-    ]
+    return load_ropa_records()
 
-@router.post("/audit_ropa_alignment", response_model=AuditReport)
-async def audit_ropa_alignment(ropa_data: List[RopaEntry]):
+async def audit_ropa_alignment() -> AuditReport:
     """Verifies ROPA alignment and purpose limitation."""
+    ropa_data = load_ropa_records()
     results = []
-    # Implement actual audit checks here based on GDPR/DPDP/EU AI Act
-    # Example check: Ensure every ROPA entry has a legal basis
-    for entry in ropa_data:
-        if not entry.legal_basis:
-            results.append(AuditResult(check_id=f"ROPA-LEGAL-BASIS-{entry.ropa_id}", status="FAILED", details="Missing legal basis"))
+
+    if not ropa_data:
+        results.append(AuditResult(check_id="ROPA-DATA-LOAD", status="FAILED", details="No ROPA data found to audit."))
+        overall_status = "NON_COMPLIANT"
+    else:
+        for entry in ropa_data:
+            if not entry.legal_basis:
+                results.append(AuditResult(check_id=f"ROPA-LEGAL-BASIS-{entry.ropa_id}", status="FAILED", details="Missing legal basis."))
+            else:
+                results.append(AuditResult(check_id=f"ROPA-LEGAL-BASIS-{entry.ropa_id}", status="PASSED"))
+
+            if len(entry.purpose) < 10:
+                results.append(AuditResult(check_id=f"ROPA-PURPOSE-MIN-{entry.ropa_id}", status="WARNING", details="Purpose description might be too vague."))
+            else:
+                results.append(AuditResult(check_id=f"ROPA-PURPOSE-MIN-{entry.ropa_id}", status="PASSED"))
+
+            if not entry.department_owner:
+                results.append(AuditResult(check_id=f"ROPA-OWNERSHIP-{entry.ropa_id}", status="FAILED", details="Missing department owner."))
+            else:
+                results.append(AuditResult(check_id=f"ROPA-OWNERSHIP-{entry.ropa_id}", status="PASSED"))
+
+        if any(r.status == "FAILED" for r in results):
+            overall_status = "NON_COMPLIANT"
+        elif any(r.status == "WARNING" for r in results):
+            overall_status = "WARNING"
         else:
-            results.append(AuditResult(check_id=f"ROPA-LEGAL-BASIS-{entry.ropa_id}", status="PASSED"))
-
-    # Determine overall status
-    overall_status = "COMPLIANT" if all(r.status == "PASSED" for r in results) else "NON_COMPLIANT"
-
-    # Placeholder for cryptographic signing and hashing
-    query_hash = "mock_query_hash"
-    response_signature = "mock_response_signature"
-    data_state_hash = "mock_data_state_hash"
+            overall_status = "COMPLIANT"
 
     return AuditReport(
         audit_id="GOV-AUDIT-001",
         framework="GDPR",
         results=results,
         overall_status=overall_status,
-        query_hash_digest=query_hash,
-        response_signature=response_signature,
-        data_state_hash=data_state_hash
+        query_hash_digest="mock_query_hash_gov",
+        response_signature="mock_response_signature_gov",
+        data_state_hash="mock_data_state_hash_gov"
     )
