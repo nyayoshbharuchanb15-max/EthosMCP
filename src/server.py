@@ -15,7 +15,7 @@ orchestrator = ResourceOrchestrator()
 
 @app.get("/.well-known/oauth-authorization-server")
 def well_known_oauth() -> dict[str, str]:
-    return oauth_metadata(f"http://localhost:{settings.port}").__dict__
+    return oauth_metadata(settings.base_url).__dict__
 
 
 @app.get("/audit/export")

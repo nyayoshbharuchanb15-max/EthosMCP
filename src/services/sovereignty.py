@@ -6,6 +6,11 @@ from typing import Any
 from src.models.audit import AuditReport, AuditResult
 from src.tools import load_metadata_records
 
+# Consent UX friction above this value is treated as non-compliant for withdrawal usability checks.
+MAX_WITHDRAWAL_FRICTION_SCORE = 3
+# GDPR DSAR fulfillment benchmark: 30-day SLA for response/erasure workflows.
+MAX_DSAR_ERASURE_LATENCY_DAYS = 30
+
 
 async def query_consent_registry() -> AuditReport:
     consent_rows = load_metadata_records("consent_registry.json")
@@ -14,7 +19,7 @@ async def query_consent_registry() -> AuditReport:
     for row in consent_rows:
         explicit_consent = bool(row.get("explicit_consent"))
         friction = int(row.get("withdrawal_friction_score", 0))
-        passed = explicit_consent and friction <= 3
+        passed = explicit_consent and friction <= MAX_WITHDRAWAL_FRICTION_SCORE
         if not passed:
             non_compliant += 1
         results.append(
@@ -39,7 +44,7 @@ async def query_consent_registry() -> AuditReport:
 
 async def simulate_dsar_workflow(dsar_request: dict[str, Any]) -> AuditReport:
     latency_days = int(dsar_request.get("erasure_latency_days", 0))
-    passed = latency_days <= 30
+    passed = latency_days <= MAX_DSAR_ERASURE_LATENCY_DAYS
     result = AuditResult(
         check_id="dsar_erasure_sla",
         status="PASSED" if passed else "FAILED",

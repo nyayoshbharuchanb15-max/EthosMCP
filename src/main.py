@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 if __package__ in {None, ""}:
+    # Support direct execution via `python src/main.py` in addition to module mode.
     sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from src.config import settings
