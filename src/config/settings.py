@@ -14,6 +14,7 @@ class Settings:
     data_dir: Path
     config_path: Path
     base_url: str
+    crypto_key: str
 
 
 _port = int(os.getenv("PORT", "8000"))
@@ -26,4 +27,5 @@ settings = Settings(
     data_dir=Path(os.getenv("ETHOSMCP_DATA_DIR", "data")),
     config_path=Path(os.getenv("ETHOSMCP_CONFIG", "config.yaml")),
     base_url=os.getenv("ETHOSMCP_BASE_URL", f"http://localhost:{_port}"),
+    crypto_key=os.getenv("CRYPTO_KEY", "ethosmcp-default-audit-key"),
 )
