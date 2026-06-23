@@ -48,7 +48,8 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
     if name == "verify_data_purpose":
         dataset = arguments.get('dataset_id')
         purpose = arguments.get('requested_purpose')
-        # Here is where your EthosMCP logic would go
+        # Boilerplate stub: replace with real purpose-registry lookup from
+        # src/services/data_purpose.py when integrating into the full server.
         return [types.TextContent(type="text", text=f"[SUCCESS] Purpose '{purpose}' is compliant for dataset '{dataset}'.")]
     raise ValueError(f"Unknown tool: {name}")
 
