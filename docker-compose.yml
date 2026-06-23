@@ -7,11 +7,13 @@ services:
       - "8000:8000"
     env_file:
       - .env
-    depends_on:
-      - db
 
+  # The database service is required only for the roadmap persistence layer.
+  # Start it alongside the server with: docker-compose --profile database up
   db:
     image: postgres:15-alpine
+    profiles:
+      - database
     environment:
       POSTGRES_DB: ethosmcp_db
       POSTGRES_USER: user
