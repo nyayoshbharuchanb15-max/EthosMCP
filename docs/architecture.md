@@ -21,20 +21,6 @@ The application logic is organized into distinct services, each corresponding to
 *   **`sovereignty.py`**: Manages consent lifecycle audits and simulates Data Subject Access Request (DSAR) fulfillment to ensure individual rights are upheld.
 *   **`security.py`**: Verifies technical and organizational security measures, including encryption, access controls, and data processing agreements.
 
-### 2.2.1. Workflow Runtime Layer
-
-The live server wiring uses a small orchestration layer:
-
-*   **`workflow/context_engine.py`**: Builds per-request, zero-trust execution context metadata.
-*   **`workflow/prompt_manager.py`**: Resolves system and user audit prompts from `src/prompts/`.
-*   **`workflow/tool_registry.py`**: Registers MCP tools and routes invocation to service handlers.
-*   **`workflow/resource_orchestrator.py`**: Coordinates context + prompts + tool execution for the server API.
-
-### 2.2.2. Prompt and Tool Asset Layers
-
-*   **`src/prompts/`** contains reusable user prompts, system templates, and audit-phase context definitions.
-*   **`src/tools/`** provides read-only metadata resource accessors, external adapter placeholders, and knowledge-graph connector placeholders.
-
 ### 2.3. Schemas Layer
 
 Pydantic models are used to define the structure and validation rules for all data exchanged within the system, including audit parameters, compliance vectors, and audit reports. This ensures strict type safety and adherence to regulatory requirements.
@@ -62,13 +48,6 @@ This layer provides common utility functions, suchs as cryptographic operations 
 ## 4. Deployment
 
 EthosMCP is designed for containerized deployment using Docker and Docker Compose, ensuring portability and ease of setup. The `Dockerfile` defines the build process, and `docker-compose.yml` orchestrates the server and its dependencies (e.g., PostgreSQL for audit logs).
-
-For local execution, run:
-
-```bash
-python -m src.cli serve --transport stdio
-python -m src.cli serve --transport http --port 8000
-```
 
 ## 5. Security and Compliance Principles
 

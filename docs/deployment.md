@@ -19,13 +19,18 @@ cd EthosMCP
 
 ## 3. Configure Environment Variables
 
-Copy `.env.example` to `.env` in the root of the project directory, then update values for your environment.
+Create a `.env` file in the root of the project directory. This file will contain sensitive configuration details for your deployment.
 
-```bash
-cp .env.example .env
+```dotenv
+# .env
+
+PORT=8000
+DATABASE_URL="postgresql://user:password@db:5432/ethosmcp_db"
+CRYPTO_KEY="your_strong_cryptographic_key_here"
+# Add other environment variables as needed
 ```
 
-**Important:** Replace the placeholder `CRYPTO_KEY` value with a strong, randomly generated key. Do not commit `.env` to version control.
+**Important:** Replace `your_strong_cryptographic_key_here` with a strong, randomly generated key. Do not commit this file to version control.
 
 ## 4. Build and Run with Docker Compose
 
@@ -46,10 +51,10 @@ Once the containers are running, you can verify the deployment:
     ```bash
     docker-compose ps
     ```
-    You should see `ethosmcp-server` and `db` containers in an `Up` state.
+    You should see `ethosmcp-server` and `db` containers in a `Up` state.
 
 *   **Access the MCP server:**
-    The MCP server will be accessible on `http://localhost:8000` (or the port you specified in `.env`).
+    The MCP server will be accessible on `http://localhost:8000` (or the port you specified in `.env`). You can interact with it using an MCP client.
 
 ## 6. Stopping and Removing Services
 
