@@ -71,8 +71,9 @@ def tools_list() -> list[dict[str, Any]]:
 def run_server(*, transport: str, port: int, config_path: Path) -> None:
     _ = config_path
     if transport == "stdio":
-        print("EthosMCP stdio transport ready")
-        print(f"Registered tools: {[tool.get('name') for tool in orchestrator.list_registered_tools()]}")
+        from src.mcp_app import mcp
+
+        mcp.run(transport="stdio")
         return
 
     import uvicorn
