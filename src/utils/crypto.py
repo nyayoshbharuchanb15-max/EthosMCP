@@ -6,7 +6,7 @@ from src.config import settings
 
 def generate_hmac_signature(data: str) -> str:
     """Generates an HMAC-SHA256 signature for the given data."""
-    key = settings.CRYPTO_KEY.encode("utf-8")
+    key = settings.crypto_key.encode("utf-8")
     message = data.encode("utf-8")
     signature = hmac.new(key, message, hashlib.sha256).hexdigest()
     return signature

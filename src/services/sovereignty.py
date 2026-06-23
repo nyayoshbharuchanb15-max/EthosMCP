@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import json
 from datetime import datetime, timezone
 from typing import Any
 
 from src.models.audit import AuditReport, AuditResult
 from src.tools import load_metadata_records
+from src.utils.crypto import generate_hmac_signature, generate_sha256_hash
 
 # Consent UX friction above this value is treated as non-compliant for withdrawal usability checks.
 MAX_WITHDRAWAL_FRICTION_SCORE = 3
@@ -30,15 +32,27 @@ async def query_consent_registry() -> AuditReport:
             )
         )
 
+    overall_status = "NON_COMPLIANT" if non_compliant else "COMPLIANT"
+    audit_id = "SOV-AUDIT-001"
+    framework = "GDPR_DPDP"
+    data_state_hash = generate_sha256_hash(json.dumps(consent_rows, sort_keys=True))
+    query_hash_digest = generate_sha256_hash(f"{audit_id}:{framework}")
+    results_summary = json.dumps(
+        [{"check_id": r.check_id, "status": r.status} for r in results],
+        sort_keys=True,
+    )
+    response_signature = generate_hmac_signature(
+        f"{audit_id}:{framework}:{overall_status}:{results_summary}"
+    )
     return AuditReport(
-        audit_id="SOV-AUDIT-001",
-        framework="GDPR_DPDP",
+        audit_id=audit_id,
+        framework=framework,
         results=results,
-        overall_status="NON_COMPLIANT" if non_compliant else "COMPLIANT",
+        overall_status=overall_status,
         execution_timestamp=datetime.now(timezone.utc).isoformat(),
-        query_hash_digest="metadata-only",
-        response_signature="unsigned-prototype",
-        data_state_hash="metadata-snapshot",
+        query_hash_digest=query_hash_digest,
+        response_signature=response_signature,
+        data_state_hash=data_state_hash,
     )
 
 
@@ -50,13 +64,21 @@ async def simulate_dsar_workflow(dsar_request: dict[str, Any]) -> AuditReport:
         status="PASSED" if passed else "FAILED",
         details=f"latency_days={latency_days}",
     )
+    overall_status = "COMPLIANT" if passed else "NON_COMPLIANT"
+    audit_id = "SOV-AUDIT-DSAR-001"
+    framework = "GDPR_DPDP"
+    data_state_hash = generate_sha256_hash(json.dumps(dsar_request, sort_keys=True))
+    query_hash_digest = generate_sha256_hash(f"{audit_id}:{framework}")
+    response_signature = generate_hmac_signature(
+        f"{audit_id}:{framework}:{overall_status}:latency_days={latency_days}"
+    )
     return AuditReport(
-        audit_id="SOV-AUDIT-DSAR-001",
-        framework="GDPR_DPDP",
+        audit_id=audit_id,
+        framework=framework,
         results=[result],
-        overall_status="COMPLIANT" if passed else "NON_COMPLIANT",
+        overall_status=overall_status,
         execution_timestamp=datetime.now(timezone.utc).isoformat(),
-        query_hash_digest="metadata-only",
-        response_signature="unsigned-prototype",
-        data_state_hash="metadata-snapshot",
+        query_hash_digest=query_hash_digest,
+        response_signature=response_signature,
+        data_state_hash=data_state_hash,
     )
