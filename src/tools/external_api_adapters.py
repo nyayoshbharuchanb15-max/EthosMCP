@@ -23,7 +23,7 @@ minimum the following keys:
 
 **Roadmap** — replace the placeholder below with a concrete HTTP adapter once
 upstream API credentials are available. The ``httpx`` package (already in
-``requirements.txt``) is the recommended HTTP client.
+``pyproject.toml`` / ``requirements.txt``) is the recommended HTTP client.
 """
 
 
