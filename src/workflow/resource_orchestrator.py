@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .audit_protocol import run_audit_workflow
 from .context_engine import ContextEngine
 from .prompt_manager import PromptManager
 from .tool_registry import ToolRegistry
@@ -29,3 +30,6 @@ class ResourceOrchestrator:
             "prompts": self.prompt_manager.resolve_tool_prompt(name),
             "result": await self.tool_registry.invoke(name, payload),
         }
+
+    async def run_audit_workflow(self, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+        return await run_audit_workflow(payload)

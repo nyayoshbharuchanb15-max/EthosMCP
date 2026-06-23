@@ -16,6 +16,7 @@ def test_documented_tools_are_registered():
     assert "analyze_data_flow" in names
     assert "query_consent_registry" in names
     assert "simulate_dsar_workflow" in names
+    assert "run_audit_workflow" in names
 
 
 def test_initialize_payload_server_info_present():

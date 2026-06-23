@@ -113,6 +113,10 @@ The repository includes a functional Dockerized prototype of the EthosMCP server
     ```bash
     curl -X POST http://localhost:8000/localization/analyze_data_flow
     ```
+    Run the deterministic four-phase workflow end-to-end:
+    ```bash
+    curl -X POST http://localhost:8000/audit/workflow
+    ```
 
 For full deployment instructions, see [docs/deployment.md](./docs/deployment.md).
 

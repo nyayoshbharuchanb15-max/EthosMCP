@@ -3,9 +3,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Body, FastAPI, HTTPException
 
 from src.config import settings
+from src.models.workflow import AuditWorkflowRequest
 from src.services.oauth import oauth_metadata
 from src.workflow import ResourceOrchestrator
 
@@ -44,6 +45,13 @@ async def tools_invoke_endpoint(tool_name: str, payload: dict[str, Any] | None =
 @app.get("/workflow/snapshot")
 def workflow_snapshot_endpoint() -> dict[str, Any]:
     return orchestrator.workflow_snapshot()
+
+
+@app.post("/audit/workflow")
+async def audit_workflow_endpoint(
+    payload: AuditWorkflowRequest = Body(default_factory=AuditWorkflowRequest),
+) -> dict[str, Any]:
+    return await orchestrator.run_audit_workflow(payload.model_dump())
 
 
 @app.post("/mcp/initialize")
