@@ -1,15 +1,11 @@
-# src/config.py
+from __future__ import annotations
 
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from dataclasses import dataclass
 
-class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
-
-    APP_NAME: str = "EthosMCP"
-    PORT: int = 8000
-    DATABASE_URL: str = "postgresql://user:password@host:port/dbname"
-    CRYPTO_KEY: str = "supersecretkey"
-    DATA_DIR: str = "./data"
-    # Add other configuration variables as needed
+@dataclass(frozen=True)
+class Settings:
+    app_name: str = "EthosMCP"
+    version: str = "1.1.0"
+    default_transport: str = "stdio"
 
 settings = Settings()

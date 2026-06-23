@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ethosmcp"
+version = "1.1.0"
+description = "Vendor-neutral AI ethics & data protection compliance audit framework (EU AI Act, GDPR, DPDP)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Nyayosh Bharucha"}]
+keywords = ["mcp", "gdpr", "dpdp", "eu-ai-act", "compliance", "audit"]
+dependencies = [
+  "mcp>=1.0.0",
+  "pydantic>=2.0",
+  "pydantic-settings>=2.0",
+  "asyncpg",
+  "motor",
+  "boto3",
+  "google-cloud-storage",
+  "azure-storage-blob",
+  "cryptography>=42.0",
+  "httpx",
+  "python-jose[cryptography]",
+  "rfc3161ng",
+  "fastapi>=0.100.0",
+  "uvicorn>=0.22.0",
+]
+
+[project.scripts]
+ethosmcp = "src.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+packages = ["src", "src.models", "src.services", "src.schemas", "src.utils", "src.regulatory", "src.discovery"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["src"]
