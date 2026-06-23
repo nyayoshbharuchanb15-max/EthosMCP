@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from dataclasses import asdict, is_dataclass
 from inspect import signature
-from typing import Any, Awaitable, Callable
+from typing import Any, Awaitable, Callable, cast
 
 from src.schemas.mcp_tools import load_tool_schemas
 from src.services import governance, localization, security, sovereignty
+from src.workflow.audit_protocol import run_audit_workflow
 
 ToolCallable = Callable[..., Awaitable[Any]]
 
@@ -20,6 +21,7 @@ class ToolRegistry:
             "query_consent_registry": sovereignty.query_consent_registry,
             "simulate_dsar_workflow": sovereignty.simulate_dsar_workflow,
             "audit_encryption_coverage": security.audit_encryption_coverage,
+            "run_audit_workflow": run_audit_workflow,
         }
         missing_schemas = [tool_name for tool_name in self._tools if tool_name not in self._schemas]
         if missing_schemas:
@@ -44,6 +46,8 @@ class ToolRegistry:
         else:
             result = await tool_callable()
 
-        if is_dataclass(result):
+        if is_dataclass(result) and not isinstance(result, type):
             return asdict(result)
-        return result
+        if isinstance(result, dict):
+            return cast(dict[str, Any], result)
+        raise TypeError(f"Tool {name} returned unsupported result type: {type(result).__name__}")
