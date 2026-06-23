@@ -71,7 +71,8 @@ async def simulate_dsar_workflow(erasure_latency_days: int = 0) -> dict[str, Any
     Args:
         erasure_latency_days: Expected erasure SLA in days (GDPR benchmark: ≤30).
     """
-    return asdict(await sovereignty.simulate_dsar_workflow({"erasure_latency_days": erasure_latency_days}))
+    dsar_input = {"erasure_latency_days": erasure_latency_days}
+    return asdict(await sovereignty.simulate_dsar_workflow(dsar_input))
 
 
 # ---------------------------------------------------------------------------
