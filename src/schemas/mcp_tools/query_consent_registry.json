@@ -1,0 +1,31 @@
+{
+  "name": "query_consent_registry",
+  "description": "Queries consent registry metadata for compliance audit. Returns consent state machine evidence only.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "organization_id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{3,64}$", "examples": ["acme_hq"]},
+      "data_subject_category": {"type": "string", "enum": ["customer", "employee", "vendor", "prospect", "other"], "examples": ["customer"]},
+      "language": {"type": "string", "default": "en", "examples": ["en", "hi"]}
+    },
+    "required": ["organization_id"],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "rights_baseline_v1": {"type": "string", "description": "State token for Phase 4 input"},
+      "grant_rate": {"type": "number"},
+      "withdrawal_latency_days": {"type": "number"},
+      "events": {"type": "array", "items": {"type": "object"}},
+      "errors": {"type": "array", "items": {"$ref": "#/definitions/ComplianceError"}}
+    },
+    "required": ["rights_baseline_v1", "grant_rate"],
+    "definitions": {
+      "ComplianceError": {"type": "object"},
+      "AuditTrailMarker": {"type": "object"}
+    }
+  }
+}
