@@ -5,4 +5,5 @@ USER_PROMPTS = {
     "query_consent_registry": "Evaluate consent metadata state-machine evidence.",
     "simulate_dsar_workflow": "Simulate DSAR workflow without executing delete operations.",
     "audit_encryption_coverage": "Audit encryption metadata coverage at rest and in transit.",
+    "verify_data_purpose": "Verify that the requested data-usage purpose is permitted under EU AI Act and GDPR purpose-limitation rules.",
 }

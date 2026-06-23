@@ -1,0 +1,30 @@
+[
+  {
+    "dataset_id": "DS-CUSTOMER-001",
+    "name": "Customer Personal Data",
+    "data_classification": "personal_data",
+    "allowed_purposes": ["billing", "service_delivery", "legal_compliance", "fraud_prevention"],
+    "prohibited_purposes": ["third_party_marketing", "unsolicited_profiling", "automated_decision_making"]
+  },
+  {
+    "dataset_id": "DS-HR-001",
+    "name": "Employee HR Records",
+    "data_classification": "sensitive_personal_data",
+    "allowed_purposes": ["payroll", "performance_review", "legal_compliance"],
+    "prohibited_purposes": ["marketing", "third_party_sharing", "automated_decision_making", "profiling"]
+  },
+  {
+    "dataset_id": "DS-TELEMETRY-001",
+    "name": "Product Usage Telemetry",
+    "data_classification": "pseudonymous_data",
+    "allowed_purposes": ["product_improvement", "analytics", "fraud_prevention", "service_delivery"],
+    "prohibited_purposes": ["re_identification", "third_party_sharing"]
+  },
+  {
+    "dataset_id": "DS-AI-TRAINING-001",
+    "name": "AI Model Training Dataset",
+    "data_classification": "aggregated_data",
+    "allowed_purposes": ["model_training", "research", "bias_detection", "legal_compliance"],
+    "prohibited_purposes": ["individual_profiling", "third_party_sharing"]
+  }
+]
