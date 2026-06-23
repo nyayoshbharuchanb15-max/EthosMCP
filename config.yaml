@@ -1,0 +1,24 @@
+# EthosMCP server configuration
+# All values here are defaults and can be overridden via environment variables.
+
+server:
+  transport: stdio       # "stdio" for AI-client mode, "http" for REST + MCP-HTTP mode
+  port: 8000             # Effective only when transport = "http"
+
+audit:
+  data_dir: data         # Directory containing the JSON metadata fixtures
+  mode: read-only        # Audit posture: the server never mutates source systems
+
+crypto:
+  # Set CRYPTO_KEY in your environment or .env file.
+  # The default value below is for local development only — never use it in production.
+  key_env_var: CRYPTO_KEY
+
+# ---------------------------------------------------------------------------
+# Roadmap extensions (not yet wired; declared here for contributor visibility)
+# ---------------------------------------------------------------------------
+# database:
+#   url_env_var: DATABASE_URL   # asyncpg-compatible postgres connection string
+
+# storage:
+#   provider: local             # future: "s3" | "gcs" | "azure"

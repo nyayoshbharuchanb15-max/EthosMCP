@@ -15,17 +15,39 @@ dependencies = [
   "mcp>=1.0.0",
   "pydantic>=2.0",
   "pydantic-settings>=2.0",
+  "fastapi>=0.100.0",
+  "uvicorn>=0.22.0",
+  "httpx>=0.27.0",
+]
+
+# ---------------------------------------------------------------------------
+# Optional dependency groups — install when extending the prototype into a
+# production system. Example: pip install ethosmcp[database,storage,crypto]
+# ---------------------------------------------------------------------------
+[project.optional-dependencies]
+database = [
+  "asyncpg",      # Phase-roadmap: live PostgreSQL adapter for audit-log persistence
+  "motor",        # Phase-roadmap: MongoDB adapter for consent registry
+]
+storage = [
+  "boto3",                  # Phase-roadmap: AWS S3 adapter for audit-trail archival
+  "google-cloud-storage",   # Phase-roadmap: GCS adapter
+  "azure-storage-blob",     # Phase-roadmap: Azure Blob adapter
+]
+crypto = [
+  "cryptography>=42.0",         # Phase-roadmap: X.509 certificate signing for audit reports
+  "python-jose[cryptography]",  # Phase-roadmap: JWT issuance for OAuth proof-of-possession
+  "rfc3161ng",                  # Phase-roadmap: RFC 3161 trusted timestamping
+]
+all = [
   "asyncpg",
   "motor",
   "boto3",
   "google-cloud-storage",
   "azure-storage-blob",
   "cryptography>=42.0",
-  "httpx",
   "python-jose[cryptography]",
   "rfc3161ng",
-  "fastapi>=0.100.0",
-  "uvicorn>=0.22.0",
 ]
 
 [project.scripts]

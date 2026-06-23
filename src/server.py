@@ -84,6 +84,13 @@ def run_server(*, transport: str, port: int, config_path: Path) -> None:
         mcp.run(transport="stdio")
         return
 
+    # HTTP mode: mount the MCP streamable-HTTP transport alongside the REST API so
+    # that both curl/browser clients (via /tools/invoke/*) and MCP-aware AI clients
+    # (Claude Desktop, Cursor — via /mcp) can reach the server on the same port.
+    from src.mcp_app import mcp
+
+    app.mount("/mcp", mcp.streamable_http_app())
+
     import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=port)
