@@ -3,24 +3,24 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
-from src.schemas.mcp_tools import load_tool_schemas
+from src.config import settings
 from src.services.oauth import oauth_metadata
+from src.workflow import ResourceOrchestrator
 
-app = FastAPI(title="EthosMCP", version="1.1.0")
-SCHEMA_CACHE = load_tool_schemas()
+app = FastAPI(title="EthosMCP", version=settings.version)
+orchestrator = ResourceOrchestrator()
 
 
 @app.get("/.well-known/oauth-authorization-server")
 def well_known_oauth() -> dict[str, str]:
-    # Design rationale: OAuth discovery must be publicly visible before protected tool access.
-    return oauth_metadata("http://localhost:8080").__dict__
+    return oauth_metadata(f"http://localhost:{settings.port}").__dict__
 
 
 @app.get("/audit/export")
 def audit_export() -> dict[str, str]:
-    return {"format": "CEF", "status": "empty"}
+    return {"format": "CEF", "status": "metadata-only"}
 
 
 @app.get("/healthz")
@@ -30,7 +30,20 @@ def healthz() -> dict[str, str]:
 
 @app.get("/tools/list")
 def tools_list_endpoint() -> list[dict[str, Any]]:
-    return list(SCHEMA_CACHE.values())
+    return orchestrator.list_registered_tools()
+
+
+@app.post("/tools/invoke/{tool_name}")
+async def tools_invoke_endpoint(tool_name: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    try:
+        return await orchestrator.run_tool(tool_name, payload)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/workflow/snapshot")
+def workflow_snapshot_endpoint() -> dict[str, Any]:
+    return orchestrator.workflow_snapshot()
 
 
 @app.post("/mcp/initialize")
@@ -43,7 +56,7 @@ def initialize_endpoint() -> dict[str, Any]:
             "prompts": {"listChanged": False},
             "logging": {},
         },
-        "serverInfo": {"name": "EthosMCP", "version": "1.0.0"},
+        "serverInfo": {"name": settings.app_name, "version": settings.version},
     }
 
 
@@ -52,15 +65,16 @@ def initialize_payload() -> dict[str, Any]:
 
 
 def tools_list() -> list[dict[str, Any]]:
-    return list(SCHEMA_CACHE.values())
+    return orchestrator.list_registered_tools()
 
 
 def run_server(*, transport: str, port: int, config_path: Path) -> None:
     _ = config_path
     if transport == "stdio":
-        # Design rationale: stdio transport is for subprocess-based MCP clients and local agents.
         print("EthosMCP stdio transport ready")
+        print(f"Registered tools: {[tool.get('name') for tool in orchestrator.list_registered_tools()]}")
         return
+
     import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=port)

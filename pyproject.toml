@@ -33,7 +33,18 @@ ethosmcp = "src.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "."}
-packages = ["src", "src.models", "src.services", "src.schemas", "src.utils", "src.regulatory", "src.discovery"]
+packages = [
+  "src",
+  "src.config",
+  "src.models",
+  "src.prompts",
+  "src.services",
+  "src.schemas",
+  "src.tools",
+  "src.utils",
+  "src.regulatory",
+  "src.workflow",
+]
 
 [tool.ruff]
 line-length = 100

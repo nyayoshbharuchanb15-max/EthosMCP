@@ -1,0 +1,14 @@
+{
+  "name": "audit_encryption_coverage",
+  "description": "Audits encryption-at-rest and in-transit coverage from infrastructure metadata only.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object"
+  }
+}
