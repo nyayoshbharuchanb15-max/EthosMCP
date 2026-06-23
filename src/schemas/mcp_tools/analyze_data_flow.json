@@ -5,26 +5,9 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-      "organization_id": {
-        "type": "string",
-        "pattern": "^[a-zA-Z0-9_-]{3,64}$",
-        "description": "Unique identifier for the organization or subsidiary being audited",
-        "examples": ["acme_hq"]
-      },
-      "scope": {
-        "type": "string",
-        "enum": ["full", "external_transfers", "internal_only"],
-        "description": "Scope of data-flow records to retrieve",
-        "default": "full",
-        "examples": ["external_transfers"]
-      },
-      "jurisdiction": {
-        "type": "array",
-        "items": {"type": "string", "enum": ["GDPR", "DPDP", "EU_AI_ACT", "ALL"]},
-        "description": "Regulatory frameworks to validate against",
-        "default": ["ALL"],
-        "examples": [["GDPR"]]
-      }
+      "organization_id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{3,64}$", "description": "Unique identifier for the organization or subsidiary being audited", "examples": ["acme_hq"]},
+      "scope": {"type": "string", "enum": ["full", "external_transfers", "internal_only"], "description": "Scope of data-flow records to retrieve", "default": "full", "examples": ["external_transfers"]},
+      "jurisdiction": {"type": "array", "items": {"type": "string", "enum": ["GDPR", "DPDP", "EU_AI_ACT", "ALL"]}, "description": "Regulatory frameworks to validate against", "default": ["ALL"], "examples": [["GDPR"]]}
     },
     "required": ["organization_id"],
     "additionalProperties": false

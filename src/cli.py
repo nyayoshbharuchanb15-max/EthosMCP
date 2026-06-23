@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-import argparse
 from pathlib import Path
 
 from src.server import run_server
 
 
 def main() -> None:
+    import argparse
+
     parser = argparse.ArgumentParser(prog="ethosmcp")
     subparsers = parser.add_subparsers(dest="command", required=True)
     serve = subparsers.add_parser("serve", help="Start the EthosMCP server")

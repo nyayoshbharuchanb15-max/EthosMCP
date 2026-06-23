@@ -5,7 +5,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-      "organization_id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{3,64}$", "examples": ["acme_hq"]},
+      "organization_id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{3,64}$", "description": "Unique identifier for the organization or subsidiary being audited", "examples": ["acme_hq"]},
       "subject_identifier_hash": {"type": "string", "description": "Hash of the data principal identifier"},
       "request_type": {"type": "string", "enum": ["access", "erasure", "rectification", "portability", "restriction"], "examples": ["erasure"]},
       "jurisdiction": {"type": "string", "enum": ["GDPR", "DPDP"], "examples": ["GDPR"]},

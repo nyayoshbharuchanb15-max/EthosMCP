@@ -5,9 +5,9 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-      "organization_id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{3,64}$", "examples": ["acme_hq"]},
-      "data_subject_category": {"type": "string", "enum": ["customer", "employee", "vendor", "prospect", "other"], "examples": ["customer"]},
-      "language": {"type": "string", "default": "en", "examples": ["en", "hi"]}
+      "organization_id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{3,64}$", "description": "Unique identifier for the organization or subsidiary being audited", "examples": ["acme_hq"]},
+      "data_subject_category": {"type": "string", "enum": ["customer", "employee", "vendor", "prospect", "other"], "description": "Category of data subject being reviewed", "examples": ["customer"]},
+      "language": {"type": "string", "description": "Preferred notice language", "default": "en", "examples": ["en", "hi"]}
     },
     "required": ["organization_id"],
     "additionalProperties": false
