@@ -49,6 +49,10 @@ packages = [
 [tool.ruff]
 line-length = 100
 
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
 [tool.mypy]
 python_version = "3.11"
 strict = true
