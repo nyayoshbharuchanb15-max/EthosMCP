@@ -17,3 +17,7 @@ def main() -> None:
     args = parser.parse_args()
     if args.command == "serve":
         run_server(transport=args.transport, port=args.port, config_path=Path(args.config))
+
+
+if __name__ == "__main__":
+    main()

@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "src/main.py"]
+CMD ["python", "-m", "src.cli", "serve", "--transport", "http", "--port", "8000"]
