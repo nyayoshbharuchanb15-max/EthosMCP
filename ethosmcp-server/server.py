@@ -46,11 +46,22 @@ async def handle_list_tools() -> list[types.Tool]:
 @server.call_tool()
 async def handle_call_tool(name: str, arguments: dict | None) -> list[types.TextContent]:
     if name == "verify_data_purpose":
+        if not arguments:
+            return [types.TextContent(
+                type="text",
+                text="[ERROR] Missing required arguments: dataset_id, requested_purpose.",
+            )]
         dataset = arguments.get('dataset_id')
         purpose = arguments.get('requested_purpose')
-        # Boilerplate stub: replace with real purpose-registry lookup from
+        # Stub: replace with real purpose-registry lookup from
         # src/services/data_purpose.py when integrating into the full server.
-        return [types.TextContent(type="text", text=f"[SUCCESS] Purpose '{purpose}' is compliant for dataset '{dataset}'.")]
+        return [types.TextContent(
+            type="text",
+            text=(
+                f"[STUB] Purpose check for dataset '{dataset}' with purpose '{purpose}' "
+                "is not yet implemented in the standalone server."
+            ),
+        )]
     raise ValueError(f"Unknown tool: {name}")
 
 # 3. INITIALIZATION & TRANSPORT (stdio)
