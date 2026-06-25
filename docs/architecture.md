@@ -1,5 +1,7 @@
 # EthosMCP Architecture
 
+> **For the full enterprise-grade architectural reference, including Mermaid diagrams and legal mapping tables, see [`ARCHITECTURE.md`](../ARCHITECTURE.md) at the repository root.**
+
 This document details the architectural design of the EthosMCP server, focusing on its components, interactions, and underlying principles.
 
 ## 1. Overview
