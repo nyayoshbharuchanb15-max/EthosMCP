@@ -47,9 +47,13 @@ async def handle_list_tools() -> list[types.Tool]:
 async def handle_call_tool(name: str, arguments: dict | None) -> list[types.TextContent]:
     if name == "verify_data_purpose":
         if arguments is None:
-            raise ValueError("arguments must not be null for verify_data_purpose")
+            raise ValueError("arguments must not be None for verify_data_purpose")
         dataset = arguments.get('dataset_id')
         purpose = arguments.get('requested_purpose')
+        if dataset is None or purpose is None:
+            raise ValueError(
+                "verify_data_purpose requires 'dataset_id' and 'requested_purpose' arguments"
+            )
         # TODO: integrate with src/services/data_purpose.py for real compliance
         # verification against the dataset-purpose registry.
         return [types.TextContent(
