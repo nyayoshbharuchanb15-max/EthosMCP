@@ -71,7 +71,7 @@ graph TD
 
 To fully understand the strategic and technical depth of this framework, please review the core documentation:
 
-1.  **[GOVERNANCE.md](./GOVERNANCE.md):** The strategic mandate detailing ethical design choices, zero-trust data handling policies, and alignment with ISO/IEC 42001.
+1.  **[FRAMEWORK_GOVERNANCE.md](./FRAMEWORK_GOVERNANCE.md):** The strategic mandate detailing ethical design choices, zero-trust data handling policies, and alignment with ISO/IEC 42001.
 2.  **[AUDITING_FRAMEWORK.md](./AUDITING_FRAMEWORK.md):** The technical blueprint demonstrating the four-phase deterministic audit methodology, cryptographic verification, and DSAR simulation.
 3.  **[docs/architecture.md](./docs/architecture.md):** A deeper dive into the specific Python components, FastMCP integration, and Pydantic schemas.
 4.  **[docs/compliance_mapping.md](./docs/compliance_mapping.md):** The explicit mapping of statutory legal provisions to programmatic Python audit vectors.
