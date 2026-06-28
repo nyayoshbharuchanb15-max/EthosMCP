@@ -1,0 +1,36 @@
+graph TD
+    subgraph Certificate Issuance
+        A[Phase 8: generate_audit_certificate] --> B{WeightedAuditScore}
+        B -- No BLOCKER_FAIL --> C[Build VC-JSON - W3C VC 2.0]
+        C --> D[Sign VC - Ed25519]
+        D --> E[Generate PDF from VC-JSON]
+        E --> F[Store in Certificate Store]
+        F --> G[Emit AuditCertificate]
+    end
+
+    subgraph Certificate Verification
+        G --> H[External Verifier]
+        H --> I{Verify VC Signature}
+        I -- Valid --> J[Trust Audit Results]
+        I -- Invalid --> K[Reject Audit]
+    end
+
+    subgraph Post-Issuance Monitoring & Reaudit
+        G --> L[Phase 9: monitor_model_drift]
+        L --> M{Drift Detected?}
+        M -- Yes --> N[Emit DriftAlert]
+        N --> O[Webhook Engine]
+        O --> P[Reaudit Trigger]
+        P --> A
+    end
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style L fill:#f9f,stroke:#333,stroke-width:2px
+    style F fill:#ffc,stroke:#333,stroke-width:2px
+    style G fill:#afa,stroke:#333,stroke-width:2px
+    style H fill:#add8e6,stroke:#333,stroke-width:2px
+    style J fill:#90ee90,stroke:#333,stroke-width:2px
+    style K fill:#ff6347,stroke:#333,stroke-width:2px
+    style N fill:#ff8c00,stroke:#333,stroke-width:2px
+    style O fill:#dda0dd,stroke:#333,stroke-width:2px
+    style P fill:#f0e68c,stroke:#333,stroke-width:2px

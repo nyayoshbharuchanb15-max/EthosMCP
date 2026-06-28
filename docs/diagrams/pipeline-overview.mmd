@@ -1,0 +1,36 @@
+graph TD
+    A[User / AI Assistant] -->|Audit Request| B(MCP Server - TypeScript)
+    B -->|API Calls| C(FastAPI Backend - Python)
+
+    subgraph Audit Pipeline
+        C --> P1(1. classify_ai_risk)
+        C --> P2(2. audit_supply_chain)
+        C --> P3(3. verify_human_oversight)
+        C --> P4(4. run_bias_assessment)
+        C --> P5(5. generate_dpia)
+        C --> P6(6. run_adversarial_tests)
+        C --> P7(7. score_audit_weighted)
+        C --> P8(8. generate_audit_certificate)
+        C --> P9(9. monitor_model_drift)
+    end
+
+    P1 -- Blocking Logic --> Blocker[Blocker Middleware]
+    P3 -- Blocking Logic --> Blocker
+    P7 -- Blocking Logic --> Blocker
+    Blocker --|Halt Pipeline / FailNotice| B
+
+    C --> D[Evidence Store - Postgres + JSONB]
+    P2 --> E[Provenance Graph - Neo4j]
+    P4 --> F[Bias Engine - Fairlearn + AIF360]
+    P8 --> G[Certificate Store - W3C VC 2.0]
+    P9 --> H[Drift Detection - Evidently AI]
+
+    C -- Webhook Events --> I[Webhook Engine - NATS / Redis Streams]
+    I -- Reaudit Trigger --> P9
+    G -- Reaudit Pattern --> I
+
+    D -- Immutable Records --> J[Audit Log]
+    G -- Cryptographically Signed --> K[Verifiable Credentials]
+
+    B -- Health Check --> L[Monitoring]
+    C -- Health Check --> L

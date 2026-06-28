@@ -1,25 +1,81 @@
 version: '3.8'
 
 services:
-  ethosmcp-server:
-    build: .
+  mcp-server:
+    build: ./mcp-server
+    ports:
+      - "3100:3100"
+    environment:
+      - API_BASE_URL=http://api:8000
+      - NODE_ENV=production
+    networks:
+      - governance-net
+    depends_on:
+      api:
+        condition: service_healthy
+
+  api:
+    build: ./api
     ports:
       - "8000:8000"
-    env_file:
-      - .env
-
-  # The database service is required only for the roadmap persistence layer.
-  # Start it alongside the server with: docker-compose --profile database up
-  db:
-    image: postgres:15-alpine
-    profiles:
-      - database
     environment:
-      POSTGRES_DB: ethosmcp_db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      - POSTGRES_HOST=postgres
+      - NEO4J_URI=bolt://neo4j:7687
+      - NATS_URL=nats://nats:4222
+      - ENABLE_LIVE_REGULATORY_FEEDS=false
+    networks:
+      - governance-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  postgres:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=governance_admin
+      - POSTGRES_PASSWORD=secure_password_change_me
+      - POSTGRES_DB=ai_governance_evidence
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+      - ./evidence-store/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - governance-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U governance_admin -d ai_governance_evidence"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  neo4j:
+    image: neo4j:5
+    environment:
+      - NEO4J_AUTH=neo4j/secure_password_change_me
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - governance-net
+    healthcheck:
+      test: ["CMD", "cypher-shell", "-u", "neo4j", "-p", "secure_password_change_me", "RETURN 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  nats:
+    image: nats:latest
+    networks:
+      - governance-net
+
+networks:
+  governance-net:
+    internal: true
 
 volumes:
-  db_data:
+  postgres_data:
+  neo4j_data:

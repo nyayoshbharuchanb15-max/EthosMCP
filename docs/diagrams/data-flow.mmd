@@ -1,0 +1,48 @@
+graph TD
+    subgraph Audit Request & Initial Processing
+        A[User/AI Assistant] -->|Audit Request| B(MCP Server)
+        B --> C(FastAPI Backend)
+    end
+
+    subgraph Audit Phases & Data Generation
+        C --> P1(Phase 1: Classify AI Risk)
+        C --> P2(Phase 2: Audit Supply Chain)
+        C --> P3(Phase 3: Verify Human Oversight)
+        C --> P4(Phase 4: Run Bias Assessment)
+        C --> P5(Phase 5: Generate DPIA)
+        C --> P6(Phase 6: Run Adversarial Tests)
+        C --> P7(Phase 7: Score Audit Weighted)
+        C --> P8(Phase 8: Generate Audit Certificate)
+        C --> P9(Phase 9: Monitor Model Drift)
+    end
+
+    subgraph Data Stores & Engines
+        P1 --> ES[Evidence Store - Postgres+JSONB]
+        P2 --> PG[Provenance Graph - Neo4j]
+        P3 --> ES
+        P4 --> BE[Bias Engine - Fairlearn+AIF360]
+        P5 --> ES
+        P6 --> ES
+        P7 --> ES
+        P8 --> CS[Certificate Store - W3C VC 2.0]
+        P9 --> DD[Drift Detection - Evidently AI]
+
+        BE --> ES
+        PG --> ES
+        CS --> ES
+        DD --> ES
+    end
+
+    subgraph Outputs & Feedback
+        ES --> O1[Audit Logs]
+        CS --> O2[W3C Verifiable Credentials - VC-JSON & PDF]
+        DD --> O3[Drift Alerts]
+        O3 --> WH[Webhook Engine - NATS/Redis Streams]
+        WH --> B(MCP Server)
+    end
+
+    style ES fill:#f9f,stroke:#333,stroke-width:2px
+    style PG fill:#ccf,stroke:#333,stroke-width:2px
+    style BE fill:#cfc,stroke:#333,stroke-width:2px
+    style CS fill:#ffc,stroke:#333,stroke-width:2px
+    style DD fill:#fcc,stroke:#333,stroke-width:2px

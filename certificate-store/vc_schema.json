@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AIAuditCertificate",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "array", "items": { "type": "string" } },
+    "type": { "type": "array", "items": { "type": "string" } },
+    "issuer": { "type": "string" },
+    "issuanceDate": { "type": "string", "format": "date-time" },
+    "credentialSubject": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "overallScore": { "type": "number" },
+        "complianceStatus": { "type": "string" }
+      },
+      "required": ["id", "overallScore", "complianceStatus"]
+    },
+    "proof": { "type": "object" }
+  },
+  "required": ["@context", "type", "issuer", "issuanceDate", "credentialSubject", "proof"]
+}

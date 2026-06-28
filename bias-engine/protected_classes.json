@@ -1,0 +1,12 @@
+{
+  "protected_classes": [
+    "sex",
+    "race",
+    "ethnicity",
+    "religion",
+    "disability",
+    "age",
+    "sexual_orientation",
+    "national_origin"
+  ]
+}
