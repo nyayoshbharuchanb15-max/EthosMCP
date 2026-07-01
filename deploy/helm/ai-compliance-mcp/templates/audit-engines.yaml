@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ai-compliance-mcp.fullname" . }}-audit-engines
+  labels:
+    app.kubernetes.io/component: audit-engines
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: audit-engines
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: audit-engines
+    spec:
+      containers:
+        - name: audit-engines
+          image: "{{ .Values.imageRegistry }}/audit-engines:{{ .Values.imageTag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: ORCHESTRATOR_URL
+              value: "http://{{ include "ai-compliance-mcp.fullname" . }}-orchestrator:8080"
+            - name: NATS_URL
+              value: "nats://{{ include "ai-compliance-mcp.fullname" . }}-nats:4222"
+            - name: KMS_TYPE
+              value: "vault"
+            - name: VAULT_ADDR
+              value: "http://{{ include "ai-compliance-mcp.fullname" . }}-vault:8200"
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ai-compliance-mcp.fullname" . }}-vault
+                  key: token
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ai-compliance-mcp.fullname" . }}-audit-engines
+  labels:
+    app.kubernetes.io/component: audit-engines
+spec:
+  selector:
+    app.kubernetes.io/component: audit-engines
+  ports:
+    - port: 9090
+      targetPort: 9090

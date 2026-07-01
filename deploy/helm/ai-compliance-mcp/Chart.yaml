@@ -1,0 +1,17 @@
+apiVersion: v2
+name: ai-compliance-mcp
+description: AI Compliance MCP Server – 9-phase audit pipeline with W3C VC 2.0 certificates
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+home: https://github.com/ethylan/ai-compliance-mcp-server
+keywords:
+  - ai-compliance
+  - mcp
+  - audit
+  - w3c-vc
+  - gdpr
+  - eu-ai-act
+sources:
+  - https://github.com/ethylan/ai-compliance-mcp-server
+icon: https://raw.githubusercontent.com/ethylan/ai-compliance-mcp-server/main/docs/icon.png

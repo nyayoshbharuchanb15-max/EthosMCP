@@ -1,0 +1,101 @@
+services:
+  mcp-server:
+    restart: always
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "1"
+          memory: "512M"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  orchestrator:
+    restart: always
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "2"
+          memory: "1G"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  postgres:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "4G"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  neo4j:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "4G"
+    volumes:
+      - neo4j_data:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "256M"
+
+  nats:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "256M"
+
+  vault:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
+    configs:
+      - source: vault_config
+        target: /vault/config/vault.hcl
+
+configs:
+  vault_config:
+    file: ./vault/vault.hcl
+
+volumes:
+  postgres_data:
+    driver: local
+  neo4j_data:
+    driver: local
+  redis_data:
+    driver: local
+  nats_data:
+    driver: local
+  vault_data:
+    driver: local

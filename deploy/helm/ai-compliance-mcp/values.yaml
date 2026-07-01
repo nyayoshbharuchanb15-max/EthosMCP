@@ -1,0 +1,97 @@
+# -- Number of replicas for the MCP server
+mcpServerReplicas: 2
+
+# -- Number of replicas for the orchestrator
+orchestratorReplicas: 2
+
+imagePullPolicy: IfNotPresent
+
+# -- Docker registry for all images
+imageRegistry: ghcr.io/ethylan/ai-compliance-mcp
+
+# -- Image tags (defaults to Chart.AppVersion)
+imageTag: ""
+
+# -- PostgreSQL configuration
+postgres:
+  database: ai_compliance
+  user: governance_admin
+  password: ""  # required, must be set
+  storage: 10Gi
+
+# -- Neo4j configuration
+neo4j:
+  password: ""  # required, must be set
+  storage: 10Gi
+
+# -- Redis configuration
+redis:
+  storage: 1Gi
+
+# -- NATS JetStream configuration
+nats:
+  storage: 1Gi
+
+# -- Vault configuration
+vault:
+  enabled: true
+  devMode: false
+  storage: 1Gi
+
+# -- OAuth configuration
+oauth:
+  jwksUri: http://keycloak:8080/realms/ai-compliance/protocol/openid-connect/certs
+  issuer: http://keycloak:8080/realms/ai-compliance
+  audience: ai-compliance-mcp
+
+# -- Resource limits
+resources:
+  mcpServer:
+    limits:
+      cpu: "1"
+      memory: "512M"
+  orchestrator:
+    limits:
+      cpu: "2"
+      memory: "1G"
+
+networkPolicy:
+  enabled: true
+  # -- Explicitly deny all egress except to known internal services
+  egressRules:
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: orchestrator
+      ports:
+        - port: 8080
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: postgres
+      ports:
+        - port: 5432
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: neo4j
+      ports:
+        - port: 7687
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: redis
+      ports:
+        - port: 6379
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: nats
+      ports:
+        - port: 4222
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: vault
+      ports:
+        - port: 8200

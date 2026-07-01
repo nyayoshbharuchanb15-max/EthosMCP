@@ -1,0 +1,7 @@
+FROM python:3.11-slim
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+COPY audit-engines/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY audit-engines/ .
+CMD ["python", "-m", "uvicorn", "phase9_monitor.metrics_collector:app", "--host", "0.0.0.0", "--port", "9090"]

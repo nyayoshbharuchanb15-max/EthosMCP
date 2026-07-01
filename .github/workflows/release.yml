@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build MCP Server
+        run: |
+          cd mcp-server
+          npm ci
+          npm run build
+
+      - name: Build and push Docker images
+        env:
+          REGISTRY: ghcr.io/${{ github.repository }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker compose -f deploy/docker-compose.yml build
+          for svc in mcp-server orchestrator audit-engines; do
+            tag="${REGISTRY}/${svc}:${GITHUB_REF_NAME}"
+            docker tag ai-compliance-mcp-server-${svc}:latest $tag
+            docker push $tag
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true

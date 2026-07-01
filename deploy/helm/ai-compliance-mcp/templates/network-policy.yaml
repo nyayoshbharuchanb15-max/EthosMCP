@@ -1,0 +1,81 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "ai-compliance-mcp.fullname" . }}-default-deny-egress
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: mcp-server
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: orchestrator
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: postgres
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: neo4j
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: redis
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: nats
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: vault
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/component: audit-engines
+    # Allow DNS resolution within cluster
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    # Deny all other egress implicitly
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "ai-compliance-mcp.fullname" . }}-deny-external-egress
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 10.0.0.0/8
+        - ipBlock:
+            cidr: 172.16.0.0/12
+        - ipBlock:
+            cidr: 192.168.0.0/16
+      # Allow only RFC 1918 (internal) addresses; deny public internet
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "ai-compliance-mcp.fullname" . }}-allow-ingress
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: mcp-server
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector: {}
+      ports:
+        - port: 3000
