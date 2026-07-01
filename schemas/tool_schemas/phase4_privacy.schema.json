@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ethosmcp.ai/schemas/tool_schemas/phase4_privacy.schema.json",
+  "title": "Phase 4 – Privacy Assessment Schema",
+  "description": "Validates the payload for GDPR / DPDP Act privacy impact assessment.",
+  "type": "object",
+  "required": [
+    "run_id",
+    "processing_activity",
+    "data_categories",
+    "data_subjects",
+    "recipients",
+    "storage_location",
+    "transfer_mechanisms",
+    "cross_border_transfer"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Audit run UUID"
+    },
+    "processing_activity": {
+      "type": "string",
+      "enum": ["collection", "storage", "analysis", "profiling", "automated_decision", "sharing", "retention", "erasure"],
+      "description": "Primary processing activity being assessed"
+    },
+    "data_categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "personal_identifiers",
+          "demographic",
+          "biometric",
+          "genetic",
+          "health",
+          "financial",
+          "location",
+          "online_behavior",
+          "political_opinion",
+          "religious_belief",
+          "criminal_record",
+          "special_category",
+          "children_data",
+          "anonymous"
+        ]
+      },
+      "minItems": 1,
+      "description": "Categories of data being processed"
+    },
+    "data_subjects": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["employees", "customers", "citizens", "students", "patients", "users", "children", "vulnerable"]
+      },
+      "minItems": 1,
+      "description": "Categories of data subjects affected"
+    },
+    "recipients": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Entities that receive or have access to the data"
+    },
+    "storage_location": {
+      "type": "string",
+      "enum": ["EU", "EEA", "US", "IN", "UK", "BR", "other"],
+      "description": "Primary jurisdiction where data is stored"
+    },
+    "transfer_mechanisms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["SCC", "BCR", "adequacy_decision", "derogation", "consent", "contractual_necessity", "no_transfer"]
+      },
+      "description": "Legal transfer mechanisms relied upon"
+    },
+    "cross_border_transfer": {
+      "type": "boolean",
+      "description": "Whether data is transferred across borders"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ethosmcp.ai/schemas/tool_schemas/phase5_bias.schema.json",
+  "title": "Phase 5 – Bias Assessment Schema",
+  "description": "Validates the payload for fairness and bias evaluation of an AI model.",
+  "type": "object",
+  "required": [
+    "run_id",
+    "model_endpoint",
+    "test_dataset_ref",
+    "protected_classes",
+    "intersectional"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Audit run UUID"
+    },
+    "model_endpoint": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of the model endpoint being evaluated"
+    },
+    "test_dataset_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Reference to the test dataset used for bias evaluation"
+    },
+    "protected_classes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["sex", "gender", "race", "ethnicity", "age", "disability", "religion", "sexual_orientation", "socioeconomic", "pregnancy", "marital_status", "genetic_info"]
+      },
+      "minItems": 1,
+      "description": "Protected characteristics to evaluate for bias"
+    },
+    "intersectional": {
+      "type": "boolean",
+      "description": "Whether to perform intersectional bias analysis across combined protected classes"
+    }
+  }
+}

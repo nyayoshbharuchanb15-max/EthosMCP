@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ethosmcp.ai/schemas/tool_schemas/phase3_classify.schema.json",
+  "title": "Phase 3 – Risk Classification Schema",
+  "description": "Validates the payload for EU AI Act risk tier classification.",
+  "type": "object",
+  "required": [
+    "run_id",
+    "system_name",
+    "use_case",
+    "deployment_context",
+    "processes_biometric_data",
+    "used_in_critical_infra",
+    "affects_access_to_services",
+    "autonomous_decision"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Audit run UUID"
+    },
+    "system_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name of the AI system being classified"
+    },
+    "use_case": {
+      "type": "string",
+      "enum": [
+        "remote_biometric_identification",
+        "biometric_categorisation",
+        "biometric_emotion_recognition",
+        "creditworthiness_assessment",
+        "insurance_risk_assessment",
+        "recruitment_screening",
+        "employee_performance_evaluation",
+        "educational_access",
+        "law_enforcement_risk_assessment",
+        "migration_asylum_processing",
+        "critical_infrastructure_operation",
+        "chatbot",
+        "content_moderation",
+        "recommendation",
+        "spam_filter",
+        "other"
+      ],
+      "description": "Intended use case of the AI system"
+    },
+    "deployment_context": {
+      "type": "string",
+      "enum": ["B2B", "B2C", "internal", "public_sector", "critical_infrastructure"],
+      "description": "Context in which the system is deployed"
+    },
+    "processes_biometric_data": {
+      "type": "boolean",
+      "description": "Whether the system processes biometric data"
+    },
+    "used_in_critical_infra": {
+      "type": "boolean",
+      "description": "Whether the system is used in critical infrastructure"
+    },
+    "affects_access_to_services": {
+      "type": "boolean",
+      "description": "Whether the system affects access to essential services"
+    },
+    "autonomous_decision": {
+      "type": "boolean",
+      "description": "Whether the system makes autonomous decisions without human review"
+    }
+  }
+}

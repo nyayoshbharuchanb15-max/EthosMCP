@@ -1,0 +1,142 @@
+[
+  {
+    "section": "Sec 4",
+    "title": "Obligations of Data Fiduciary",
+    "description": "Every Data Fiduciary shall make reasonable efforts to ensure personal data processed is accurate and complete, implement appropriate security safeguards, and notify the Board of any data breach.",
+    "compliance_requirements": [
+      "Appoint a Data Protection Officer (DPO)",
+      "Implement security safeguards (ISO 27001 or equivalent)",
+      "Report breaches to Data Protection Board within 72 hours",
+      "Maintain accuracy and completeness of personal data"
+    ]
+  },
+  {
+    "section": "Sec 5",
+    "title": "Notice regarding personal data processing",
+    "description": "Data Fiduciaries must provide a clear, accessible notice to Data Principals before processing personal data, describing the purpose, categories, basis, and rights available.",
+    "compliance_requirements": [
+      "Provide notice in clear and plain language",
+      "Specify purpose of processing and categories of data",
+      "Specify legal basis for processing",
+      "Inform Data Principals of their rights under the Act",
+      "Notice must be available in English and all major Indian languages"
+    ]
+  },
+  {
+    "section": "Sec 6",
+    "title": "Grounds for processing personal data",
+    "description": "Personal data may be processed only for a lawful purpose with the consent of the Data Principal, or for certain legitimate uses such as employment, legal compliance, medical emergency, or public service.",
+    "compliance_requirements": [
+      "Obtain free, specific, informed, unconditional consent with unambiguous indication",
+      "Provide ability to withdraw consent at any time",
+      "Document legitimate use basis where consent is not relied upon",
+      "Ensure processing is for a lawful purpose"
+    ]
+  },
+  {
+    "section": "Sec 7",
+    "title": "Deemed consent",
+    "description": "Processing permitted without explicit consent for specified grounds including: legal obligation, public function, medical emergency, employment-related processing, or when consent is not reasonably practicable.",
+    "compliance_requirements": [
+      "Document the deemed consent ground being relied upon",
+      "Ensure processing is strictly necessary for the claimed purpose",
+      "Maintain records of why explicit consent was not obtained",
+      "Notify Data Principals of deemed consent processing"
+    ]
+  },
+  {
+    "section": "Sec 8",
+    "title": "Obligation of Data Principal",
+    "description": "Data Principals shall not impersonate another person, suppress material information, or make false or frivolous complaints to the Board.",
+    "compliance_requirements": [
+      "Implement identity verification for data principal requests",
+      "Maintain audit logs of complaints and requests",
+      "Flag frivolous or repeated requests"
+    ]
+  },
+  {
+    "section": "Sec 9",
+    "title": "Rights of Data Principal",
+    "description": "Data Principals have rights to: confirmation of processing, access, correction, erasure, portability, grievance redressal, and the right to nominate a representative.",
+    "compliance_requirements": [
+      "Implement processes for right to confirmation and access",
+      "Implement correction and erasure workflows",
+      "Provide data portability in machine-readable format (CSV, JSON)",
+      "Establish a grievance redressal mechanism with 30-day resolution timeline",
+      "Allow nomination of representative"
+    ]
+  },
+  {
+    "section": "Sec 10",
+    "title": "Grievance Redressal by Data Fiduciary",
+    "description": "Data Fiduciaries must establish an effective mechanism to address complaints from Data Principals, with a response within 30 days from the date of complaint.",
+    "compliance_requirements": [
+      "Establish a grievance officer contactable via multiple channels",
+      "Acknowledge complaints within 24 hours",
+      "Resolve complaints within 30 days",
+      "Maintain a grievance register with resolution status",
+      "Publish grievance officer contact details on website"
+    ]
+  },
+  {
+    "section": "Sec 11",
+    "title": "Transfer of personal data outside India",
+    "description": "Personal data may be transferred outside India to countries or territories notified by the Central Government, subject to standard contractual clauses or other approved safeguards.",
+    "compliance_requirements": [
+      "Transfer only to notified countries or territories",
+      "Execute standard contractual clauses (SCCs) with recipients",
+      "Conduct Data Protection Impact Assessment (DPIA) before transfer",
+      "Maintain record of all cross-border data transfers",
+      "Notify Data Protection Board of significant transfers"
+    ]
+  },
+  {
+    "section": "Sec 12",
+    "title": "Exemptions for processing of personal data of children",
+    "description": "Processing of personal data of children is prohibited where profiling, tracking, or behavioural monitoring is involved, or where processing would cause harm. Verifiable parental consent is required.",
+    "compliance_requirements": [
+      "Implement age verification mechanisms",
+      "Obtain verifiable parental consent for child data processing",
+      "Prohibit profiling, tracking, and behavioural monitoring of children",
+      "Prohibit processing likely to cause harm to children",
+      "Classify as Significant Data Fiduciary if processing child data at scale"
+    ]
+  },
+  {
+    "section": "Sec 13",
+    "title": "Obligations of Significant Data Fiduciary",
+    "description": "Additional obligations for entities classified as Significant Data Fiduciaries by the Board, based on volume of data, sensitivity, risk to rights, and turnover.",
+    "compliance_requirements": [
+      "Appoint an independent Data Auditor",
+      "Conduct annual Data Protection Impact Assessments (DPIA)",
+      "Conduct periodic audits of processing activities",
+      "Appoint a DPO based in India",
+      "Implement enhanced security measures including encryption and access controls",
+      "Register with the Data Protection Board"
+    ]
+  },
+  {
+    "section": "Sec 14",
+    "title": "Data Protection Officer",
+    "description": "The DPO must be appointed in writing, possess expert knowledge of data protection law, be based in India, serve as a point of contact, and monitor the Data Fiduciary's compliance with the Act.",
+    "compliance_requirements": [
+      "Appoint DPO in writing with clearly defined responsibilities",
+      "DPO must be based in India",
+      "DPO must report directly to the highest management level",
+      "Publish DPO contact details publicly",
+      "Ensure DPO is involved in all data protection matters"
+    ]
+  },
+  {
+    "section": "Sec 16",
+    "title": "Data Protection Impact Assessment",
+    "description": "A DPIA is mandatory when processing large volumes of sensitive personal data, profiling children, using new technologies, or when processing poses high risk to Data Principals' rights.",
+    "compliance_requirements": [
+      "Conduct DPIA before commencing high-risk processing",
+      "Document purpose, necessity, proportionality, and risk analysis",
+      "Identify and document mitigation measures",
+      "Consult DPO during DPIA process",
+      "Review and update DPIA at regular intervals (recommended annually)"
+    ]
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "annex3_01",
+    "category": "Biometric identification and categorisation of natural persons",
+    "article": "Art. 6(2) – Annex III(1)",
+    "conformity_required": "notified_body",
+    "prohibited_subset": [
+      "real-time remote biometric identification in publicly accessible spaces for law enforcement (Art. 5(1)(d))"
+    ]
+  },
+  {
+    "id": "annex3_02",
+    "category": "Critical infrastructure management and operation",
+    "article": "Art. 6(2) – Annex III(2)",
+    "conformity_required": "self_assessment",
+    "prohibited_subset": []
+  },
+  {
+    "id": "annex3_03",
+    "category": "Educational and vocational training access",
+    "article": "Art. 6(2) – Annex III(3)",
+    "conformity_required": "self_assessment",
+    "prohibited_subset": []
+  },
+  {
+    "id": "annex3_04",
+    "category": "Employment, worker management and self-employment access",
+    "article": "Art. 6(2) – Annex III(4)",
+    "conformity_required": "self_assessment",
+    "prohibited_subset": []
+  },
+  {
+    "id": "annex3_05",
+    "category": "Access to essential services including healthcare, banking, insurance",
+    "article": "Art. 6(2) – Annex III(5)",
+    "conformity_required": "self_assessment",
+    "prohibited_subset": [
+      "social scoring by public authorities (Art. 5(1)(c))"
+    ]
+  },
+  {
+    "id": "annex3_06",
+    "category": "Law enforcement including risk assessment, evidence evaluation, profiling",
+    "article": "Art. 6(2) – Annex III(6)",
+    "conformity_required": "notified_body",
+    "prohibited_subset": [
+      "real-time remote biometric identification for law enforcement (Art. 5(1)(d))",
+      "individual risk assessment based solely on profiling (Art. 5(1)(a))"
+    ]
+  },
+  {
+    "id": "annex3_07",
+    "category": "Migration, asylum and border control management",
+    "article": "Art. 6(2) – Annex III(7)",
+    "conformity_required": "notified_body",
+    "prohibited_subset": []
+  },
+  {
+    "id": "annex3_08",
+    "category": "Administration of justice, democratic processes and access to legal remedies",
+    "article": "Art. 6(2) – Annex III(8)",
+    "conformity_required": "self_assessment",
+    "prohibited_subset": []
+  }
+]

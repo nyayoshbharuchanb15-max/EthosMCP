@@ -1,0 +1,92 @@
+{
+  "5": {
+    "article": "Art. 5",
+    "title": "Principles relating to processing of personal data",
+    "summary": "Lawfulness, fairness, transparency, purpose limitation, data minimisation, accuracy, storage limitation, integrity, confidentiality, and accountability.",
+    "phases": [4]
+  },
+  "6": {
+    "article": "Art. 6",
+    "title": "Lawfulness of processing",
+    "summary": "Processing is lawful only to the extent that at least one of six legal bases applies: consent, contract, legal obligation, vital interests, public task, or legitimate interests.",
+    "phases": [4]
+  },
+  "7": {
+    "article": "Art. 7",
+    "title": "Conditions for consent",
+    "summary": "Where processing is based on consent, the controller must demonstrate that the data subject has consented, and withdrawal must be as easy as giving consent.",
+    "phases": [4]
+  },
+  "9": {
+    "article": "Art. 9",
+    "title": "Processing of special categories of personal data",
+    "summary": "Processing of biometric, genetic, health, political, religious, or other special category data is prohibited unless explicit consent or specific legal exceptions apply.",
+    "phases": [3, 4]
+  },
+  "12": {
+    "article": "Art. 12",
+    "title": "Transparent information, communication and modalities for exercise of data subject rights",
+    "summary": "Controllers must provide information in a concise, transparent, intelligible, and easily accessible form, using clear and plain language.",
+    "phases": [4]
+  },
+  "13": {
+    "article": "Art. 13",
+    "title": "Information to be provided where personal data are collected from the data subject",
+    "summary": "Mandatory disclosures including controller identity, purpose, legal basis, legitimate interests, recipients, retention period, and data subject rights.",
+    "phases": [4]
+  },
+  "14": {
+    "article": "Art. 14",
+    "title": "Information to be provided where personal data have not been obtained from the data subject",
+    "summary": "Similar to Art. 13 but applies when data is obtained from third parties, with additional notification timelines and source disclosure requirements.",
+    "phases": [4]
+  },
+  "15": {
+    "article": "Art. 15",
+    "title": "Right of access by the data subject",
+    "summary": "Data subjects have the right to obtain confirmation of processing, access to their data, and information about processing purposes, categories, recipients, and storage duration.",
+    "phases": [4, 9]
+  },
+  "17": {
+    "article": "Art. 17",
+    "title": "Right to erasure ('right to be forgotten')",
+    "summary": "Data subjects have the right to obtain erasure of personal data without undue delay where specific grounds apply, including withdrawal of consent or unlawful processing.",
+    "phases": [4, 8]
+  },
+  "20": {
+    "article": "Art. 20",
+    "title": "Right to data portability",
+    "summary": "Data subjects have the right to receive their personal data in a structured, commonly used, machine-readable format and transmit it to another controller.",
+    "phases": [4]
+  },
+  "22": {
+    "article": "Art. 22",
+    "title": "Automated individual decision-making, including profiling",
+    "summary": "Data subjects have the right not to be subject to a decision based solely on automated processing, including profiling, which produces legal effects or similarly significant effects.",
+    "phases": [3, 4, 7]
+  },
+  "25": {
+    "article": "Art. 25",
+    "title": "Data protection by design and by default",
+    "summary": "Controllers must implement appropriate technical and organisational measures to integrate data protection principles into processing activities and minimise data collection.",
+    "phases": [4, 6]
+  },
+  "32": {
+    "article": "Art. 32",
+    "title": "Security of processing",
+    "summary": "Controllers and processors must implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk, including pseudonymisation and encryption.",
+    "phases": [6]
+  },
+  "35": {
+    "article": "Art. 35",
+    "title": "Data protection impact assessment",
+    "summary": "A DPIA is required where processing is likely to result in high risk to natural persons, particularly when using new technologies, profiling, or special category data.",
+    "phases": [4]
+  },
+  "46": {
+    "article": "Art. 46",
+    "title": "Transfers subject to appropriate safeguards",
+    "summary": "In the absence of an adequacy decision, personal data may only be transferred to third countries under SCCs, BCRs, or other approved safeguards.",
+    "phases": [4]
+  }
+}
