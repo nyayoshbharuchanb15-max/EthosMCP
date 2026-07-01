@@ -1,0 +1,52 @@
+{
+  "name": "ai-compliance-mcp-server",
+  "version": "1.0.0",
+  "description": "9-phase AI compliance audit pipeline — risk classification, bias assessment, adversarial testing, and W3C Verifiable Credential 2.0 certificate issuance",
+  "transport": ["stdio", "http"],
+  "capabilities": {
+    "tools": {
+      "register_audit_context": {
+        "description": "Phase 1: Register an AI system for compliance auditing — captures system metadata, data lineage, and jurisdictional scope"
+      },
+      "scope_regulatory_baseline": {
+        "description": "Phase 2: Determine applicable regulatory frameworks (EU AI Act, GDPR, DPDP Act) based on jurisdictional scope and system type"
+      },
+      "classify_ai_risk": {
+        "description": "Phase 3: Classify AI system risk tier per EU AI Act Art. 5-6 — UNACCEPTABLE, HIGH, LIMITED, or MINIMAL with conformity path"
+      },
+      "assess_privacy_compliance": {
+        "description": "Phase 4: Perform GDPR Art. 35 DPIA, Art. 25 Privacy by Design checklist, and DPDP Act cross-border transfer analysis"
+      },
+      "run_bias_assessment": {
+        "description": "Phase 5: Multi-dimensional bias scan using Fairlearn and AIF360 — demographic parity, equalized odds, disparate impact"
+      },
+      "run_security_tests": {
+        "description": "Phase 6: Adversarial robustness testing via ART, input validation, and data minimisation checks per GDPR Art. 5(1)(c)"
+      },
+      "generate_explainability_report": {
+        "description": "Phase 7: Generate SHAP/LIME feature importance explanations and human-readable compliance report"
+      },
+      "issue_compliance_certificate": {
+        "description": "Phase 8: Issue W3C Verifiable Credential 2.0 with EdDSA signing, RFC 3161 timestamp, and Merkle proof anchoring"
+      },
+      "monitor_model_drift": {
+        "description": "Phase 9: Continuous drift detection and reaudit triggering for post-deployment monitoring compliance"
+      }
+    },
+    "resources": {
+      "audit://results/{run_id}": {
+        "description": "Audit results for a given run — all phase statuses, findings, and the issued certificate"
+      },
+      "audit://findings/{run_id}": {
+        "description": "All findings across phases for a given audit run, filterable by severity"
+      },
+      "audit://certificate/{run_id}": {
+        "description": "Issued W3C VC 2.0 certificate for a completed audit run"
+      }
+    },
+    "logging": {
+      "level": "info",
+      "format": "structured-json"
+    }
+  }
+}
