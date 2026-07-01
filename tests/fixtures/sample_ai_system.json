@@ -1,0 +1,49 @@
+{
+  "system_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "system_name": "CandidateMatchPro",
+  "system_version": "2.3.1",
+  "vendor": "HireTech Solutions GmbH",
+  "deployment_environment": "production",
+  "description": "AI-driven candidate screening and shortlisting platform for enterprise recruitment. Uses NLP to parse CVs and rank candidates against job descriptions.",
+  "data_lineage": {
+    "sources": [
+      "job_descriptions",
+      "candidate_cvs",
+      "skills_taxonomy",
+      "historical_hiring_data",
+      "employee_performance_reviews"
+    ],
+    "transformations": [
+      "nlp_parsing_and_embedding",
+      "skill_extraction_and_normalisation",
+      "candidate_scoring_via_ranking_model",
+      "bias_mitigation_post_processing"
+    ],
+    "destinations": [
+      "ats_system",
+      "recruiter_dashboard",
+      "candidate_portal",
+      "compliance_audit_log"
+    ]
+  },
+  "jurisdictions": ["EU", "UK", "IN"],
+  "requested_by": "compliance-officer@hiretech.example.com",
+  "org_id": "org_hiretech_gmbh",
+  "use_case": "recruitment_screening",
+  "model_endpoint": "https://api.hiretech.example.com/v2/candidate-score",
+  "model_type": "ensemble",
+  "test_dataset_ref": "synthetic_candidates_2026_q1",
+  "protected_classes": ["sex", "race", "age", "disability"],
+  "processes_biometric_data": false,
+  "used_in_critical_infra": false,
+  "affects_access_to_services": true,
+  "autonomous_decision": false,
+  "data_categories": ["personal_identifiers", "demographic", "financial"],
+  "data_subjects": ["customers", "employees"],
+  "processing_activity": "profiling",
+  "recipients": ["hr_department", "hiring_managers", "external_recruiters"],
+  "storage_location": "EU",
+  "cross_border_transfer": false,
+  "explainability_method": "shap",
+  "feature_names": ["years_experience", "education_level", "skill_match_score", "cultural_fit_score", "salary_expectation"]
+}
