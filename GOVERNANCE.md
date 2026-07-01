@@ -187,5 +187,5 @@ This governance document is itself subject to the cross-track decision process (
 
 ## 10. Contact
 
-For governance questions, open a GitHub Discussion in the [Governance category](https://github.com/nyayoshbharuchanb15-max/EthosMCP/discussions).  
+For governance questions, open a GitHub Discussion at https://github.com/nyayoshbharuchanb15-max/EthosMCP/discussions.  
 For security concerns, see [SECURITY.md](./SECURITY.md).
